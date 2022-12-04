@@ -1,0 +1,71 @@
+body{
+    background-color: #FA0559;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container{
+    width: 800px;
+    background-color: white;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.form-quiz{
+    padding-top: 50px;
+    align-items: flex-start;
+}
+.title-form{
+    font-size: 50px;
+    padding-left: 30px;
+
+}
+.item-answer{ 
+    list-style: none;
+    margin: 5px;
+    font-size: 25px;
+}
+
+.bnt-submit{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border-style: none;
+    padding: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    background-color: #43C0AC;
+    color: white;
+}
+
+.form-congrats{
+    text-align: center;
+    display: none;
+    padding: 50px;
+}
+
+.btnAgain{
+    border-style: none;
+    background-color: purple;
+    padding: 10px;
+    color: white;
+    font-weight: 600;
+}
+.label{
+    font-weight: 600;
+    font-size: 20px;
+
+}
+.correct{
+    color: green;
+}
+.wrong{
+    color: red;
+}
+.score{
+    font-size: 25px;
+    font-weight: 600;
+
+}
