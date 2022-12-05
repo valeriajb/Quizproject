@@ -69,22 +69,24 @@ const getData = () => {
 };
 
 const nextQuestion = () => {
-  btnSubmit.addEventListener("click", (e) => {
-    e.preventDefault();
-
-    if (indexQuestion < data.length - 1) {
-      getData();
-      if (aswerUser === null) {
-        alert("Eligir unarespuesta");
-      } else {
-        indexQuestion++;
-        getInformation(indexQuestion);
-        aswerUser === "true" ? restOk++ : resWrong++;
-      }
+  if (indexQuestion < data.length - 1) {
+    getData();
+    if (aswerUser === null) {
+      alert("Eligir unarespuesta");
     } else {
-      changeScreen("none", "block")
+      indexQuestion++;
+      getInformation(indexQuestion);
+      aswerUser === "true" ? restOk++ : resWrong++;
     }
-  });
+  } else {
+    changeScreen("none", "block");
+  }
+};
+
+const changeValues = () => {
+  indexQuestion = 0;
+  restOk = 0;
+  resWrong = 0;
 };
 
 const changeScreen = (display1, display2) => {
@@ -97,15 +99,19 @@ const changeScreen = (display1, display2) => {
   screenCongrats.querySelector(
     ".label-wrong"
   ).textContent = `Respuestas Incorrectas:${resWrong}`;
-  screenCongrats.querySelector(".score").textContent = `Puntaje: ${(resWrong + restOk) * 10
-    }`;
-  btnTryAgain.addEventListener("click", () => {
-    changeScreen("block", "none")
-
-  })
+  screenCongrats.querySelector(".score").textContent = `Puntaje: ${
+    (resWrong + restOk) * 10
+  }`;
+ 
 };
-
 
 getInformation(indexQuestion);
 getData();
-nextQuestion();
+btnSubmit.addEventListener("click", (e) => {
+  e.preventDefault();
+  nextQuestion()
+});
+btnTryAgain.addEventListener("click", () => {
+  changeScreen("block", "none");
+  changeValues();
+});
