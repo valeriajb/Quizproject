@@ -41,8 +41,8 @@ body{
 }
 
 .form-congrats{
-    text-align: center;
     display: none;
+    align-items: center;
     padding: 50px;
 }
 
@@ -58,10 +58,10 @@ body{
     font-size: 20px;
 
 }
-.correct{
+.label-correct{
     color: green;
 }
-.wrong{
+.label-wrong{
     color: red;
 }
 .score{

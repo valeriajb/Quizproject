@@ -44,50 +44,68 @@ const btnTryAgain = document.querySelector("btnAgain");
 let indexQuestion = 0;
 let restOk = 0;
 let resWrong = 0;
-let aswerUser="";
+let aswerUser = null;
 
-const showQuestions = (Index) => {
+const getInformation = (Index) => {
   titleQuestion.textContent = data[Index].question;
   resQuestions.innerHTML = data[Index].answers
     .map(
-      (answer, index) =>
+      (item, index) =>
         `<li class="item-answer">
-          <input name="aswers" class="input-answer" type="radio" id="${index}" value="${answer.isCorrect}" />
-          <label class="input-answer" for="Aswer2">${answer.answer}</label>
+          <input name="aswers" class="input-answer" type="radio" id="${index}" value="${item.isCorrect}" />
+          <label class="input-answer" for="Aswer2">${item.answer}</label>
       </li>`
     )
     .join("");
 };
 
-const changeScreen = (displayBlock, displayNone) => { };
-
-const getAnswer = () => {
+const getData = () => {
   resQuestions.querySelectorAll("input").forEach((element) => {
     element.addEventListener("click", (e) => {
       aswerUser = e.target.value;
+      console.log(aswerUser);
     });
   });
 };
-showQuestions(indexQuestion);
-getAnswer();
-btnSubmit.addEventListener("click", (e) => {
-  e.preventDefault();
-  if (indexQuestion ===3) {
-    indexQuestion=0
-    console.log("Tope Máximo");
 
-  } else {
-    getAnswer();
-    if (aswerUser == "") {
-      alert("Escriba una respuesta")
-      
+const nextQuestion = () => {
+  btnSubmit.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    if (indexQuestion < data.length - 1) {
+      getData();
+      if (aswerUser === null) {
+        alert("Eligir unarespuesta");
+      } else {
+        indexQuestion++;
+        getInformation(indexQuestion);
+        aswerUser === "true" ? restOk++ : resWrong++;
+      }
     } else {
-      !aswerUser ? restOk++ : resWrong++;
-      indexQuestion++;
-      showQuestions(indexQuestion);
+      changeScreen("none", "block")
     }
-    console.log(indexQuestion)
-    console.log(data.length) 
-  }
-});
+  });
+};
 
+const changeScreen = (display1, display2) => {
+  screenQuestions.style.display = display1;
+  screenCongrats.style.display = display2;
+
+  screenCongrats.querySelector(
+    ".label-correct"
+  ).textContent = `Respuestas Correctas:${restOk}`;
+  screenCongrats.querySelector(
+    ".label-wrong"
+  ).textContent = `Respuestas Incorrectas:${resWrong}`;
+  screenCongrats.querySelector(".score").textContent = `Puntaje: ${(resWrong + restOk) * 10
+    }`;
+  btnTryAgain.addEventListener("click", () => {
+    changeScreen("block", "none")
+
+  })
+};
+
+
+getInformation(indexQuestion);
+getData();
+nextQuestion();
