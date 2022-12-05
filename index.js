@@ -63,19 +63,19 @@ const getData = () => {
   resQuestions.querySelectorAll("input").forEach((element) => {
     element.addEventListener("click", (e) => {
       aswerUser = e.target.value;
-      console.log(aswerUser);
     });
   });
 };
 
 const nextQuestion = () => {
-  if (indexQuestion < data.length - 1) {
+  if (indexQuestion < (data.length )) {
     getData();
     if (aswerUser === null) {
       alert("Eligir unarespuesta");
     } else {
       indexQuestion++;
       getInformation(indexQuestion);
+      console.log(aswerUser);
       aswerUser === "true" ? restOk++ : resWrong++;
     }
   } else {
@@ -107,11 +107,11 @@ const changeScreen = (display1, display2) => {
 
 getInformation(indexQuestion);
 getData();
+changeValues();
 btnSubmit.addEventListener("click", (e) => {
   e.preventDefault();
   nextQuestion()
 });
 btnTryAgain.addEventListener("click", () => {
   changeScreen("block", "none");
-  changeValues();
 });
